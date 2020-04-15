@@ -4,17 +4,17 @@ namespace Core;
 
 class Controller {
 
-    public function loadView($viewData = array(), $viewName){
+    public function loadView($viewName, $viewData = array()){
         extract($viewData);
         require "Views/".$viewName.'.php';
     }
 
-    public function loadViewInTemplate($viewData = array(), $viewName){
+    public function loadViewInTemplate($viewName, $viewData = array()){
         extract($viewData);
-        require "Views/template.php";
+        require "Views/".$viewName.'.php';
     }
 
-    public function loadTemplate($viewData = array(), $viewName){
+    public function loadTemplate ($viewName, $viewData = array()){
         require "Views/template.php";
     }
 }

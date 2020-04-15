@@ -8,6 +8,8 @@ class HomeController extends Controller {
 
     public function index()
     {
-        echo "Entrou no home";
+        $dados = array();
+
+        $this->loadTemplate('home', $dados);
     }
 }
