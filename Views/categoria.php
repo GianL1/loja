@@ -1,3 +1,4 @@
+<h1>Nome da categoria: <?php echo $categoria_nome; ?></h1> <br>
 <?php foreach ($produtos as $produto): ?>
     <a href="<?php echo BASE_URL;?>produto/ver/<?php echo $produto['id'];?>">
         <div class="produto">
@@ -8,3 +9,4 @@
     </a>
 <?php endforeach; ?>
 <div style="clear:both"></div>
+

@@ -18,6 +18,11 @@
                 <ul>
                     <a href=""><li>Home</li></a>
                     <a href=""><li>Empresa</li></a>
+                    <?php foreach($viewData['categorias'] as $v): ?>
+                    <a href="<?php echo BASE_URL?>categoria/ver/<?php echo $v['id']?>">
+                        <li><?php echo $v['titulo'] ;?></li>
+                    </a>
+                    <?php endforeach; ?>
                     <a href=""><li>Contato</li></a>
                 </ul>
             </nav>
@@ -26,7 +31,7 @@
     </header>
 
     <section class="container">
-        <?php echo $this->loadViewInTemplate($viewName, $viewData=array()); ?>
+        <?php $this->loadViewInTemplate($viewName, $viewData); ?>
     </section>
     
     <footer>

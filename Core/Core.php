@@ -2,9 +2,8 @@
 
 namespace Core;
 
-namespace Core;
-
 class Core {
+    
     public function run(){
         $url = '/';
 
