@@ -3,19 +3,19 @@
 namespace Controllers;
 
 use \Core\Controller;
-use \Models\Categorias;
 use \Models\Produtos;
+use \Models\Categorias;
 
 class CategoriaController extends Controller 
 {
+
     public function ver($id)
     {
         if(!empty($id)) {
             $dados = array();
-            $categorias = new Categorias();
             $produtos = new Produtos();
+            $categorias = new Categorias();
 
-            $dados['categorias'] = $categorias->getCategorias();
             $dados['categoria_nome'] = $categorias->getNomeCategoria($id);
             
             $dados['produtos'] = $produtos->getProdutosByIdCategoria($id);

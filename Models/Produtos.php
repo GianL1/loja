@@ -57,4 +57,17 @@ class Produtos extends Model
 
         return $array;
     }
+
+    public function getProdutoCarrinho($id)
+    {
+        $array = array();
+
+        $sql = $this->db->query("SELECT * FROM produtos WHERE id IN(".implode(',', $id).")");
+
+        if($sql->rowCount() > 0) {
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }
 }
