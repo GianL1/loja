@@ -4,6 +4,7 @@ namespace Controllers;
 
 use \Core\Controller;
 use \Models\Produtos;
+use \Models\Pagamentos;
 
 class CarrinhoController extends Controller {
 
@@ -50,6 +51,31 @@ class CarrinhoController extends Controller {
         }
         
         header("Location:".BASE_URL.'carrinho');
+    }
+
+    public function finalizar()
+    {
+        $pagamentos = new Pagamentos();
+        $produtos    = new Produtos();
+
+        $dados = array(
+            'pagamento' => array(),
+            'total' => 0
+        );
+
+        if(isset($_SESSION['carrinho'])) {
+            $dados['produtos'] = $produtos->getProdutoCarrinho($_SESSION['carrinho']);
+        }
+
+        foreach($dados['produtos'] as $prod) {
+            $dados['total'] += $prod['preco'];
+        }
+
+        $pagamentos = new Pagamentos();
+        $dados['pagamento'] = $pagamentos->getFormasPagamento();
+        
+
+        $this->loadTemplate('finalizar_compra', $dados);   
     }
 
 
