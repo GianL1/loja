@@ -11,11 +11,17 @@
             <td> <img src="<?php echo BASE_URL; ?>Assets/images/<?php echo $produto['imagem'];?>" width="60" border="0"></td>
             <td><?php echo $produto['nome'];?></td>
             <td>R$: <?php echo $produto['preco'];?></td>
+            <td>
+                <a href="<?php echo BASE_URL; ?>carrinho/del/<?php echo $produto['id']; ?>">Remover</a>
+            </td>
         </tr>
     <?php $subtotal += $produto['preco'];?>
     <?php endforeach; ?>
     <tr>
         <td colspan="2" align="right">SUBTOTAL: R$</td>
         <td align="left"><?php echo $subtotal;?></td>
+        <td>
+            <a href="<?php echo BASE_URL?>carrinho/finalizar">Finalizar Compra</a>
+        </td>
     </tr>
 </table>

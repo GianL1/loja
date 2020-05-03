@@ -23,7 +23,7 @@ nav li{
     line-height: 50px;
     padding-left: 10px;
     padding-right: 10px;
-    text-transform: lowercase;
+    text-transform: uppercase;
 }
 nav li:hover{
     background-color: #ccc;
@@ -72,4 +72,21 @@ nav a{
 footer{
     height: 100px;
     background-color: #ddd;
+}
+
+.contato input{
+    width: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 13px;
+}
+.contato textarea{
+    height: 200px;
+}
+
+.carrinho{
+    width: 100px;
+    height: 50px;
+    float: right;
+    text-align: right;;
 }

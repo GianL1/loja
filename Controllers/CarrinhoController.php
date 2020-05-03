@@ -40,4 +40,17 @@ class CarrinhoController extends Controller {
         }
 
     }
+
+    public function del($id)
+    {
+        foreach ($_SESSION['carrinho'] as $cchave => $value) {
+            if($id == $value) {
+                unset($_SESSION['carrinho'][$cchave]);
+            }
+        }
+        
+        header("Location:".BASE_URL.'carrinho');
+    }
+
+
 }
