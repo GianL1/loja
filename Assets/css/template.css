@@ -90,3 +90,9 @@ footer{
     float: right;
     text-align: right;;
 }
+.erro {
+    padding: 15px;
+    border: 1px;
+    background-color: #eee;
+    margin-bottom: 10px;
+}

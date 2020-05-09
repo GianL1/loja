@@ -1,5 +1,11 @@
 <h1>Finalizar Compra</h1>
 
+<?php if (!empty($erro)): ?>
+    <div class="erro">
+        <?php echo $erro; ?>
+    </div>
+<?php endif; ?>
+
 <form action="" method="post">
     <fieldset>
         <legend>Informações do Usuário</legend>
@@ -10,12 +16,12 @@
 
         <label>
             Email: <br>
-            <input type="text" name="Email" id="">
+            <input type="text" name="email" id="">
         </label><br><br>
 
         <label>
             Senha: <br>
-            <input type="password" name="Senha" id="">
+            <input type="password" name="senha" id="">
         </label><br><br>
         
     </fieldset>

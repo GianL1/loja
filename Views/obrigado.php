@@ -1,0 +1,1 @@
+Compra realizada com sucesso;
