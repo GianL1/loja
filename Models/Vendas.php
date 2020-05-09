@@ -16,14 +16,7 @@ class Vendas extends Model
 
         $status = 1;
         $pg_link = '';
-        
-        if ($pg == '1') {
-            $status = '2';
 
-            $pg_link = BASE_URL.'carrinho/obrigado';
-        } else {
-            //integração com pagamentos
-        }
         $sql = $this->db->prepare("INSERT INTO venda SET id_usuario = :id_usuario, endereco = :endereco, 
                                     valor = :valor, forma_pg = :forma_pg, status_pg = :status_pg, pg_link = :pg_link");
 
@@ -35,9 +28,48 @@ class Vendas extends Model
         $sql->bindValue(":pg_link", $pg_link);
 
         $sql->execute();
-        
 
         $id_venda = $this->db->lastInsertId();
+        
+        
+        if ($pg == '1') {
+
+            $status = '2';
+
+            $pg_link = BASE_URL.'carrinho/obrigado';
+
+            $sql = $this->db->prepare("UPDATE venda SET status_pg = :status_pg WHERE id = :id_venda");
+            $sql->bindValue(":id_venda", $id_venda);
+            $sql->execute();
+
+
+        } elseif($pg == '2') {
+            //Pagseguro
+            require "libraries/PagSeguroLibrary/PagSeguroLibrary.php";
+
+            $paymentRequest = new PagSeguroPaymentRequest();
+
+            foreach($prods as $prod) {
+                $paymentRequest->addItem($prod['id'], $prod['nome'], 1, $prod['preco']);
+            }
+
+            $paymentRequest->setCurrency('BRL');
+            $paymentRequest->setReference($id_venda);
+            $paymentRequest->setRedirectUrl(BASE_URL.'carrinho/obrigado');
+            $paymentRequest->addParameter("notificationURL", BASE_URL.'carrinho/notificacao');
+
+            try {
+
+                $cred = PagSeguroConfig::getAccountCredentials();
+                $pg_link = $paymentRequest->register($cred);
+
+            } catch (PagSeguroServiceException $e) {
+                
+                echo $e->getMessage();
+            }
+            
+        }
+          
 
         foreach($prods as $prod) {
             $sql = $this->db->prepare("INSERT INTO vendas_produtos SET id_venda = :id_venda, id_produto = :id_produto, quantidade = 1 ");
