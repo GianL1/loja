@@ -138,5 +138,11 @@ class CarrinhoController extends Controller {
         $this->loadTemplate("obrigado", $dados=array());    
     }
 
+    public function notificacao()
+    {
+        $vendas = new Vendas();
+        $vendas->verificarVendas();
+    }
+
 
 }

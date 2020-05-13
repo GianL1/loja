@@ -6,6 +6,60 @@ use \Core\Model;
 
 class Vendas extends Model 
 {
+
+    public function verificarVendas()
+    {
+        require "libraries/PagSeguroLibrary/PagSeguroLibrary.php";
+
+        $code = '';
+        $type = '';
+
+        if(isset($_POST['notificationCode']) && isset($_POST['notificationType'])){
+            $code = trim($_POST['notificationCode']);
+            $type = trim($_POST['notificationType']);
+
+            $notificationType = new PagSeguroNotificationType($type);
+            $strType = $notificationType->getTypeFromValue();
+
+            $credentials = PagSeguroConfig::getAcountCredentials();
+
+            try {
+
+                $transaction = PagSeguroNotificationService::checkTransaction($credentials, $code);
+                $ref = $transaction->getReference();
+                $status = $transaction->getStatus()->getValue();
+
+                $novoStatus = 0;
+
+                switch ($status) {
+                    case '1': //Aguardando pagamento
+                    case '2':
+                        $novoStatus = '1';
+                        break;
+                    case '3': //Paga
+                    case '4': //Disponivel
+                        $novoStatus = '2';
+
+                        break;
+                    case '6': //Devolvida
+                    case '7': //Cancelada
+                        $novoStatus = '3';
+
+                        break;
+
+                }
+
+                $sql = $this->db->prepare("UPDATE venda SET status_pg = :status_pg WHERE id = :ref");
+                $sql->bindValue(":status_pg", $novoStatus);
+                $sql->bindValue(":ref", $ref);
+                $sql->execute();
+
+            } catch (PagSeguroServiceException $e) {
+                echo "FALHA: ". $e->getMessage();
+            }
+
+        }
+    }
     public function setVenda($id_usuario, $endereco, $subtotal, $pg, $prods)
     {
         /*
@@ -40,6 +94,7 @@ class Vendas extends Model
 
             $sql = $this->db->prepare("UPDATE venda SET status_pg = :status_pg WHERE id = :id_venda");
             $sql->bindValue(":id_venda", $id_venda);
+            $sql->bindValue(":status_pg", $status);
             $sql->execute();
 
 
