@@ -21,6 +21,6 @@ if(ENVIRONMENT == "development") {
     $config['tipos_pgto'] = array(
         '1' => 'Aguardando Pagamento',
         '2' => 'Aprovado',
-        '3' => 'Cancelado';
+        '3' => 'Cancelado'
     )
 ?>
