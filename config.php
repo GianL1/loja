@@ -18,3 +18,9 @@ if(ENVIRONMENT == "development") {
     $config['dbuser'] = 'root';
     $config['dbpass'] = '';
 }
+    $config['tipos_pgto'] = array(
+        '1' => 'Aguardando Pagamento',
+        '2' => 'Aprovado',
+        '3' => 'Cancelado';
+    )
+?>

@@ -9,7 +9,7 @@ class Usuarios extends Model {
     public function isExiste($email, $senha = '')
     {
         if(!empty($senha)) {
-            $sql = $this->db->query("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
+            $sql = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
             $sql->bindValue(':email', $email);
             $sql->bindValue(":senha", md5($senha));
             $sql->execute();
@@ -42,11 +42,11 @@ class Usuarios extends Model {
         $sql->execute();
 
         if($sql->rowCount() > 0) {
-            $sql = $sql->fetch;
+            $sql = $sql->fetch();
             $id = $sql['id'];
         
         }
 
-            return $id;
+        return $id;
     }
 }

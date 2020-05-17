@@ -6,8 +6,10 @@
         <div class="menu-int">
             <nav>
                 <ul>
+                    <a href="<?php echo BASE_URL; ?>pedidos">Pedidos</a>
+                    <a href="<?php echo  BASE_URL ?>login/logar">Login</a>
                     <a href="<?php echo BASE_URL; ?>"><li>Home</li></a>
-                    <a href="<?php echo BASE_URL?>empresa"><li>Empresa</li></a>
+                    <a href="<?php echo BASE_URL; ?>empresa"><li>Empresa</li></a>
                     <?php foreach($viewData['categorias'] as $v): ?>
                     <a href="<?php echo BASE_URL?>categoria/ver/<?php echo $v['id']?>">
                         <li><?php echo $v['titulo'] ;?></li>

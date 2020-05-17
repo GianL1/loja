@@ -7,6 +7,23 @@ use \Core\Model;
 class Vendas extends Model 
 {
 
+    public function getPedidosDoUsuario($id_usuario)
+    {
+        $array = array();
+        if (!empty($id_usuario)) {
+
+            $sql = $this->db->prepare("SELECT * FROM venda WHERE id_usuario = :id_usuario");
+            $sql->bindValue(":id_usuario",$id_usuario);
+            $sql->execute();
+
+            if ($sql->rowCount() > 0) {
+                $array = $sql->fetchAll();
+            }
+
+            return $array;
+        }
+    }
+
     public function verificarVendas()
     {
         require "libraries/PagSeguroLibrary/PagSeguroLibrary.php";
