@@ -12,7 +12,8 @@ class Vendas extends Model
         $array = array();
         if (!empty($id_usuario)) {
 
-            $sql = $this->db->prepare("SELECT * FROM venda WHERE id_usuario = :id_usuario");
+            $sql = $this->db->prepare("SELECT *, (select pagamentos.nome from pagamentos where pagamentos.id = vendas.forma_pg) as tipopgto 
+                                        FROM venda WHERE id_usuario = :id_usuario");
             $sql->bindValue(":id_usuario",$id_usuario);
             $sql->execute();
 
@@ -156,5 +157,24 @@ class Vendas extends Model
         return $pg_link;
 
                                     
+    }
+
+    public function verificarPedido($id_pedido, $id_cliente)
+    {
+        $array = array();
+
+        $sql = $this->db->prepare("SELECT * FROM venda WHERE id = :id_pedido AND id_usuario = id_usuario");
+        $sql->bindValue(':id', $id_pedido);
+        $sql->bindValue(':id_usuario', $id_cliente);
+
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetch();
+
+            return $array;
+        }else {
+            return false;
+        }
     }
 }

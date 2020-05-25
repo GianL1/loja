@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use \Core\Controller;
+use Models\Produtos;
 use Models\Vendas;
 
 
@@ -25,6 +26,26 @@ class PedidosController extends Controller
             header('Location:'.BASE_URL.'login');
         }
 
+    }
+
+    public function ver($id)
+    {
+        $vendas = new Vendas();
+
+        if (!empty($id)) {
+            $id = addslashes($id);
+            $dados = array();
+
+            if(!empty($dados['pedidos'] = $vendas->verificarPedido($id, $_SESSION['cliente']))) {
+
+                
+                $this->loadTemplate('pedidos_ver', $dados);
+
+            }
+
+        }else{
+            header('Location:'.BASE_URL);
+        }
     }
 
 

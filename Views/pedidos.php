@@ -17,9 +17,9 @@
         <tr>
             <td><?php echo  $pedido['id']; ?></td>
             <td><?php echo  $pedido['valor']; ?></td>
-            <td><?php echo  $pedido['forma_pg'];?></td>
+            <td><?php echo  $pedido['tipopgto'];?></td>
             <td><?php echo  $config['tipos_pgto'][$pedido['status_pg']]; ?></td>
-            <td></td>
+            <td><a href="<?php echo BASE_URL?>pedidos/ver/<?php echo $pedido['id']?>">Detalhes</a></td>
         </tr>
     <?php endforeach; ?>
 </table>
