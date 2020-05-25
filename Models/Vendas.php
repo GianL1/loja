@@ -159,11 +159,12 @@ class Vendas extends Model
                                     
     }
 
-    public function verificarPedido($id_pedido, $id_cliente)
+    public function getPedido($id_pedido, $id_cliente)
     {
         $array = array();
 
-        $sql = $this->db->prepare("SELECT * FROM venda WHERE id = :id_pedido AND id_usuario = id_usuario");
+        $sql = $this->db->prepare("SELECT *, (pagamentos.nome from pagamentos where pagamentos.id = vendas.forma_pg) 
+                                    FROM venda WHERE id = :id_pedido AND id_usuario = id_usuario");
         $sql->bindValue(':id', $id_pedido);
         $sql->bindValue(':id_usuario', $id_cliente);
 
@@ -172,9 +173,27 @@ class Vendas extends Model
         if ($sql->rowCount() > 0) {
             $array = $sql->fetch();
 
+            $array['produtos'] = $this->getProdutosDoPeido($id_pedido);
+
             return $array;
         }else {
             return false;
         }
+    }
+
+    public function getProdutosDoPedido($id_venda){
+        $array = array();
+
+        $sql = $this->db->prepare("SELECT * FROM vendas_produtos WHERE id_venda = :id_venda");
+        $sql->bindValue(":id_venda", $id_venda);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            
+            $array = $sql->fetchAll();
+
+        }
+
+        return $array;
     }
 }

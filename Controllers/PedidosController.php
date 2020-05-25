@@ -36,12 +36,13 @@ class PedidosController extends Controller
             $id = addslashes($id);
             $dados = array();
 
-            if(!empty($dados['pedidos'] = $vendas->verificarPedido($id, $_SESSION['cliente']))) {
+            if(!empty($dados['pedidos'] = $vendas->getPedido($id, $_SESSION['cliente']))) {
 
                 
                 $this->loadTemplate('pedidos_ver', $dados);
 
             }
+
 
         }else{
             header('Location:'.BASE_URL);
