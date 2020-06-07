@@ -18,3 +18,14 @@
         <td><a href=""></a> | <a href=""></a></td>
     </tr>
 </table>
+
+<hr>
+
+<?php foreach($pedidos['produtos'] as $produto): ?>
+    <div class="pedido_produto">
+        <img src="<?php echo BASE_URL?>Assets/imagens/<?php $produto['imagem']; ?>" border="0" width="100%"><br>
+        <?php echo $produto['nome']; ?>
+        R$: <?php echo $produto['preco']; ?>
+        Quantidade: <?php echo $produto['quantidade']; ?>
+    </div>
+<?php endforeach; ?>

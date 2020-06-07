@@ -184,13 +184,21 @@ class Vendas extends Model
     public function getProdutosDoPedido($id_venda){
         $array = array();
 
-        $sql = $this->db->prepare("SELECT * FROM vendas_produtos WHERE id_venda = :id_venda");
+        $sql = $this->db->prepare("SELECT vendas_produtos.quantidade,
+                                          vendas_produtos.id_produto,
+                                          produtos.nome,
+                                          produtos.imagem,
+                                          produtos.preco 
+                                    FROM vendas_produtos 
+                                    LEFT JOIN produtos 
+                                    ON vendas_produtos.id_produtos = produtos.id
+                                    WHERE vendas_produtos.id_venda = :id_venda");
         $sql->bindValue(":id_venda", $id_venda);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
             
-            $array = $sql->fetchAll();
+            $array['produtos'] = $sql->fetchAll();
 
         }
 
