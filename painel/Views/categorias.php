@@ -1,6 +1,6 @@
 <h1>Lista de categorias</h1>
 
-<a href="<?php echo BASE_UR?>categorias/add" class="btn btn-default">Adicionar Categoria</a>
+<a href="<?php echo BASE_URL?>categorias/add" class="btn btn-default">Adicionar Categoria</a>
 
 <table class="table table-striped">
     <thead>
