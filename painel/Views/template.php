@@ -25,7 +25,7 @@
                     <a class="nav-link" href="<?php echo BASE_URL; ?>categorias">Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Produtos</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>produtos">Produtos</a>
                 </li>
 
                 <li class="nav-item">
