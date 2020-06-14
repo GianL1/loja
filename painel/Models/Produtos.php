@@ -19,4 +19,23 @@ class Produtos extends Model
 
         return $array;
     }
+
+    public function inserir($nome, $descricao, $categoria, $preco,  $quantidade, $imagem){
+        
+        $sql = $this->db->prepare("INSERT INTO produtos SET nome = :nome
+                                                          , descricao = :descricao
+                                                          , id_categoria = :id_categoria
+                                                          , preco = :preco
+                                                          , quantidade = :quantidade
+                                                          , imagem = :imagem ");
+
+        $sql->bindValue(":nome", $nome);
+        $sql->bindValue(":descricao", $descricao);
+        $sql->bindValue(":id_categoria", $categoria);
+        $sql->bindValue(":preco", $preco);
+        $sql->bindValue(":quantidade", $quantidade);
+        $sql->bindValue(":imagem", $imagem);
+
+        $sql->execute();
+    }
 }

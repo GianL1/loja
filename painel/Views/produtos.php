@@ -1,6 +1,6 @@
 <h1>Lista de produtos</h1>
 
-<a href="<?php echo BASE_URL?>produtos/add" class="btn btn-default">Adicionar Categoria</a>
+<a href="<?php echo BASE_URL?>produtos/add" class="btn btn-default">Adicionar Produtos</a>
 
 <table class="table table-striped">
     <thead>

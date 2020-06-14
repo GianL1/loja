@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Core\Controller;
 use Models\Produtos;
+use Models\Categorias;
 
 
 class ProdutosController extends Controller {
@@ -18,24 +19,49 @@ class ProdutosController extends Controller {
         $this->loadTemplate('produtos', $dados);
     }
 
-    /*
+    
 
     public function add () {
         $dados = [];
 
-        if (isset($_POST['categoria']) && !empty($_POST['categoria'])) {
+        $cat = new Categorias();
+        $dados['categorias'] = $cat->getCategorias();
+        
+        if (isset($_POST['produto']) && !empty($_POST['produto']) 
+            && isset($_FILES['imagem']) 
+            && !empty($_FILES['imagem']['tmp_name'])) {
 
-            $cat = new Categorias;
-            $cat->addCategoria($_POST['categoria']);
+            $produto = new Produtos();
 
-            header("Location:".BASE_URL."categorias");
+            $nome = addslashes($_POST['produto']);
+            $descricao = addslashes($_POST['descricao']);
+            $categoria = addslashes($_POST['categoria']);
+            $preco = addslashes($_POST['preco']);
+            $quantidade = addslashes($_POST['quantidade']);
+            $imagem = $_FILES['imagem'];
 
+            if (in_array($imagem['type'], array('image/jpeg', 'image/jpg', 'image/png'))) {
+                $ext = '.jpg';
+
+                if ($imagem['type'] == 'image/png') {
+                    $ext = '.png';
+                }
+
+                $md5imagens = md5(time().rand(0,9999)).$ext;
+
+                move_uploaded_file($imagem['tmp_name'],'../Assets/images/'.$md5imagens);
+
+                $produto->inserir($nome, $descricao, $categoria, $preco, $quantidade, $md5imagens);
+
+                header("Location: ".BASE_URL.'produtos');
+            }
+            
         }
 
-        $this->loadTemplate('categorias_add', $dados);
+        $this->loadTemplate('produtos_add', $dados);
 
     }
-
+    /*
     public function remove (int $id){
 
         if (!empty($id)) {
@@ -65,4 +91,5 @@ class ProdutosController extends Controller {
         $this->loadTemplate('categorias_edit', $dados);
     }
     */
+    
 }
