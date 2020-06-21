@@ -29,7 +29,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Vendas</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>vendas">Vendas</a>
                 </li>
                 </ul>
                 <span class="navbar-text">

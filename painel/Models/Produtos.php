@@ -82,7 +82,17 @@ class Produtos extends Model
     }
 
     public function removeProduto(int $id){
+        $sql = $this->db->query("SELECT imagem FROM produtos WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
 
+        if($sql->rowCount() > 0) {
+            $img = $sql->fetch();
+            $img = $sql['imagem'];
+
+            unlink('http://localhost/php/loja/Assets/images/'.$img);
+            
+        }
 
         $sql = $this->db->prepare("DELETE FROM produtos WHERE id_categoria = :id");
         $sql->bindValue(":id", $id);
