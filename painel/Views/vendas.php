@@ -22,7 +22,10 @@
             <td><?php echo $venda['nome_usuario']; ?></td>
             <td>R$ <?php echo $venda['valor'];?></td>
             <td><?php echo $venda['nome_usuario'];?></td>
-            <td><?php echo $config['tipos_pgto'][$venda['status_pg']];?></td>
+            <td><?php echo $config['tipos_pgto']  [$venda['status_pg']];?></td>
+            <td>
+                <a href="<?php echo BASE_URL;?>/vendas/ver/<?php $venda['id']?>">Visualizar</a>
+            </td>
         </tr>
     <?php endforeach; ?>
     

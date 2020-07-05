@@ -15,4 +15,15 @@ class VendasController extends Controller
         
         $this->loadTemplate("vendas", $dados);
     }
+
+    public function ver (int $id)
+    {
+        $dados = [];
+
+        $vendas = new Vendas();
+        $dados['venda'] = $vendas->getVenda($id);
+        $dados['produtos'] = $vendas->getProdutosVenda($id);
+
+        $this->loadTemplate("vendas_ver", $dados);
+    }
 }
