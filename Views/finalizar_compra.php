@@ -1,48 +1,86 @@
-<h1>Finalizar Compra</h1>
+<h1> Finalizar Compra </h1>
 
-<?php if (!empty($erro)): ?>
-    <div class="erro">
-        <?php echo $erro; ?>
-    </div>
-<?php endif; ?>
-
-<form action="" method="post">
+<form action="" method="post" id="form">
     <fieldset>
-        <legend>Informações do Usuário</legend>
-        <label>
-            Nome: <br>
-            <input type="text" name="nome" id="">
-        </label> <br><br>
+        <legend>
+            Informações do Usuário
+        </legend>
 
-        <label>
-            Email: <br>
-            <input type="text" name="email" id="">
-        </label><br><br>
+        Nome: <br>
+        <input type="text" name="nome"><br><br>
 
-        <label>
-            Senha: <br>
-            <input type="password" name="senha" id="">
-        </label><br><br>
-        
-    </fieldset>
+        E-mail: <br>
+        <input type="email" name="email"><br><br>
 
-    <fieldset>
-        <legend>Informações de Endereço</legend>
-        <textarea name="endereco"></textarea>
-    </fieldset>
-
-    <fieldset>
-        <legend>Resumo da compra: </legend>
-        Total a Pagar: <?php echo $total; ?>
-    </fieldset>
-
-    <fieldset>
-        <legend>Informações de Pagamento</legend>
-        <?php foreach($pagamento as $pg): ?>
-            <input type="radio" name="pg" value="<?php echo $pg['id']; ?>"> <?php echo $pg['nome']; ?><br><br>
-        <?php endforeach; ?>
+        Telefone: <br>
+        <input type="text" name="ddd"> <input type="tel" name="telefone">
     </fieldset>
     <br>
-    <button type="submit">Efetuar Pagamento</button>
-</form>
+    <fieldset>
+        <legend>Informações de Endereço </legend>
 
+        CEP: <br>
+        <input type="text" name="endereco[cep]"><br><br>
+
+        CEP: <br>
+        <input type="text" name="endereco[rua]"><br><br>
+
+        Número: <br>
+        <input type="text" name="endereco[numero]"><br><br>
+
+        Complemento: <br>
+        <input type="text" name="endereco[complemento]"><br><br>
+
+        Bairro: <br>
+        <input type="text" name="endereco[bairro]"><br><br>
+
+        Cidade: <br>
+        <input type="text" name="endereco[cidade]"><br><br>
+
+        Estado: <br>
+        <input type="text" name="endereco[estado]"><br><br>
+
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>Resumo da Compra</legend>
+        Total a Pagar: R$ 00000
+    </fieldset><br>
+    <fieldset>
+        <legend>Informações de Pagamento</legend>
+
+        <select name="pg_form" id="pg_form" onchange="selectPg()">
+            <option value=""></option>
+            <option value="CREDIT_CARD">Cartão de Crédito</option>
+            <option value="BOLETO">Boleto</option>
+            <option value="BALANCE">Saldo PagSeguro</option>
+        </select>
+        <div style="display:none" id="cc">
+            Qual a bandeira do seu cartão ?
+            <div id="bandeira">
+
+            </div>
+            <br>
+            <div id="cardinfo" style="display:none">[
+                Parcelamento: <br>
+                <select name="" id=""></select><br><br>
+
+                Titular do cartão: <br>
+                <input type="text" name="c_titular"><br><br>
+
+                CPF do Titular:
+                <input type="text" name="cpf"><br><br>
+
+                Número do Cartão: <br>
+                <input type="text" name="cartao" id="cartao"><br><br>
+
+                Digito: <br>
+                <input type="text" name="cvv" id="cvv" maxlength="4"><br><br>
+
+                Validade: <br>
+                <input type="text" name="validade" id="validade">
+            </div>
+        </div>
+
+    </fieldset>
+</form>
