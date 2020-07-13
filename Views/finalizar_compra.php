@@ -44,7 +44,7 @@
     <br>
     <fieldset>
         <legend>Resumo da Compra</legend>
-        Total a Pagar: R$ 00000
+        Total a Pagar: R$ <?php echo $total; ?>
     </fieldset><br>
     <fieldset>
         <legend>Informações de Pagamento</legend>
@@ -83,4 +83,23 @@
         </div>
 
     </fieldset>
+    <br>
+    <button type="submit"> Efetuar Pagamento </button>
+
+    <input type="hidden" name="bandeira" id="bandeira">
+    <input type="hidden" name="ctoken" id="ctoken">
+    <input type="hidden" name="shash" id="shash">
+    <input type="hidden" name="sessionId" value="<?php echo $sessionId?>">
+
 </form>
+
+<script type="text/javascript"
+  src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js">
+</script>
+<script type="text/javascript">
+    var sessionId = "<?php echo $sessionId?>";
+    var valor = "<?php echo $total; ?>";
+    var formOk = false;
+</script>
+
+<script src="<?php echo BASE_URL?>Assets/js/ckt.js"></script>

@@ -61,11 +61,42 @@ class CarrinhoController extends Controller {
         $dados = array(
             'pagamento' => array(),
             'total' => 0,
-            'erro' => ''
+            'sessionId' => 0,
+            'erro' => '',
+            'produtos' => []
         );
 
-        
-        
+        require 'libraries/PagSeguroLibrary/PagSeguroLibrary.php';
+        $prods = [];
+
+        if (isset($_SESSION['carrinho'])) {
+
+            $prods = $_SESSION['carrinho'];
+
+        }
+
+        if(count($prods) > 0) {
+
+            $produtos = new Produtos();
+            $dados['produtos'] = $produtos->getProdutoById($prods);
+
+            foreach ($dados['produtos'] as $prod) {
+
+                $dados['total'] += $prod['preco'];
+
+            }
+        }
+
+        if (isset($_POST['pg_form']) && !empty($_POST['pg_form'])) {
+            # code...
+        }else {
+            try {
+                $credentials = PagSeguroConfig::getAccountCredentials();
+                $dados['sessionId'] = PagSeguroSessionService::getSession($credentials); 
+            } catch (PagSeguroServiceException $e) {
+                die($e->getMessagE());
+            }
+        }
 
         $this->loadTemplate('finalizar_compra', $dados);   
     }
