@@ -1,6 +1,6 @@
 <h1> Finalizar Compra </h1>
 
-<form action="" method="post" id="form">
+<form action="" method="post" id="form" onsubmit="return pagar()">
     <fieldset>
         <legend>
             Informações do Usuário
@@ -63,7 +63,7 @@
             <br>
             <div id="cardinfo" style="display:none">[
                 Parcelamento: <br>
-                <select name="" id=""></select><br><br>
+                <select name="parc" id="parc"></select><br><br>
 
                 Titular do cartão: <br>
                 <input type="text" name="c_titular"><br><br>
